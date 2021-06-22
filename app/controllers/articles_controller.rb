@@ -8,6 +8,7 @@ class ArticlesController < ApplicationController
   end
   
   def new
+    @article = Article.new #otherwise @article would be nil in our view, and calling @article.errors.any? would throw an error.
   end
 
   
@@ -18,11 +19,21 @@ class ArticlesController < ApplicationController
   #   redirect_to @article
   # end
 
+  # def create
+  #   @article = Article.new(article_params)
+   
+  #   @article.save
+  #   redirect_to @article
+  # end
+
   def create
     @article = Article.new(article_params)
    
-    @article.save
-    redirect_to @article
+    if @article.save
+      redirect_to @article
+    else
+      render 'new'
+    end
   end
    
   private
