@@ -11,6 +11,10 @@ class ArticlesController < ApplicationController
     @article = Article.new #otherwise @article would be nil in our view, and calling @article.errors.any? would throw an error.
   end
 
+  def edit
+    @article = Article.find(params[:id])
+  end
+
   
   # def create
   #   @article = Article.new(params[:article])
@@ -33,6 +37,16 @@ class ArticlesController < ApplicationController
       redirect_to @article
     else
       render 'new'
+    end
+  end
+
+  def update
+    @article = Article.find(params[:id])
+   
+    if @article.update(article_params)
+      redirect_to @article
+    else
+      render 'edit'
     end
   end
    
